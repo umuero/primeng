@@ -240,6 +240,7 @@ export class MultiSelectItem {
                                         role="textbox"
                                         [value]="filterValue || ''"
                                         (input)="onFilterInputChange($event)"
+                                        (keydown.arrowdown)="onFilterArrowDown($event)"
                                         class="p-multiselect-filter p-inputtext p-component"
                                         [disabled]="disabled"
                                         [attr.placeholder]="filterPlaceHolder"
@@ -1215,6 +1216,17 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         event.stopPropagation();
     }
 
+    onFilterArrowDown(event: KeyboardEvent) {
+        if (this.itemsViewChild?.nativeElement && this.itemsViewChild.nativeElement.children) {
+            // jump to options with arrowDown from filterInput
+            let nextItem = this.findNextItem({ nextElementSibling: this.itemsViewChild.nativeElement.children[0] });
+            if (nextItem) {
+                nextItem.focus();
+                event.preventDefault();
+            }
+        }
+    }
+
     onMouseclick(event: MouseEvent, input: HTMLInputElement) {
         if (this.disabled || this.readonly || (<Node>event.target).isSameNode(this.accessibleViewChild?.nativeElement)) {
             return;
@@ -1265,7 +1277,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         switch ((<KeyboardEvent>event.originalEvent).which) {
             //down
             case 40:
-                var nextItem = this.findNextItem((event.originalEvent.target as any).parentElement);
+                let nextItem = this.findNextItem((event.originalEvent.target as any).parentElement);
                 if (nextItem) {
                     nextItem.focus();
                 }
@@ -1275,9 +1287,12 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
 
             //up
             case 38:
-                var prevItem = this.findPrevItem((event.originalEvent.target as any).parentElement);
+                let prevItem = this.findPrevItem((event.originalEvent.target as any).parentElement);
                 if (prevItem) {
                     prevItem.focus();
+                } else if (this.filterInputChild && this.filterInputChild.nativeElement) {
+                    // jump to filterInput with arrowUp from options[0]
+                    this.filterInputChild.nativeElement.focus();
                 }
 
                 event.originalEvent.preventDefault();
@@ -1286,6 +1301,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
             //enter
             case 13:
                 this.onOptionClick(event);
+                this.resetFilter(); // keyboard select -> reset filter
                 event.originalEvent.preventDefault();
                 break;
 
