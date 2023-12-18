@@ -1647,6 +1647,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
                     this.onOptionSelectRange(event, this.focusedOptionIndex());
                 } else {
                     this.onOptionSelect({ originalEvent: event, option: this.visibleOptions()[this.focusedOptionIndex()] });
+                    this.resetFilter(); // UE
                 }
             }
         }
@@ -1670,7 +1671,6 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         if (!pressedInInputText) {
             if (this.overlayVisible && this.hasFocusableElements()) {
                 DomHandler.focus(event.shiftKey ? this.lastHiddenFocusableElementOnOverlay.nativeElement : this.firstHiddenFocusableElementOnOverlay.nativeElement);
-
                 event.preventDefault();
             } else {
                 if (this.focusedOptionIndex() !== -1) {
@@ -1679,6 +1679,9 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
 
                 this.overlayVisible && this.hide(this.filter);
             }
+        } else {
+            // UE
+            this.overlayVisible && this.hide(this.filter);
         }
     }
 
