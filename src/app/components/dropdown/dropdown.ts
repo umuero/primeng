@@ -479,6 +479,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     @Input() autoDisplayFirst: boolean = true;
     /**
      * Whether to display options as grouped when nested options are provided.
+     * @deprecated since v17.3.0, set initial value by model instead.
      * @group Props
      */
     @Input() group: boolean | undefined;
@@ -1187,7 +1188,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     isEmpty() {
-        return !this._options() || (this._options() && this._options().length === 0);
+        return !this._options() || (this.visibleOptions() && this.visibleOptions().length === 0);
     }
 
     onEditableInput(event: KeyboardEvent) {
@@ -1587,7 +1588,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     onSpaceKey(event: KeyboardEvent, pressedInInputText: boolean = false) {
-        !pressedInInputText && this.onEnterKey(event);
+        !this.editable && !pressedInInputText && this.onEnterKey(event);
     }
 
     onEnterKey(event) {
