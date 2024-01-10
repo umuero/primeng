@@ -1100,6 +1100,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
                 } else {
                     this.selectedOptions = [...modelValue];
                 }
+                this.cd.markForCheck();
             }
         });
     }

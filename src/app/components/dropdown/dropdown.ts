@@ -145,6 +145,8 @@ export class DropdownItem {
                 (focus)="onInputFocus($event)"
                 (blur)="onInputBlur($event)"
                 (keydown)="onKeyDown($event)"
+                [attr.aria-required]="required"
+                [attr.required]="required"
             >
                 <ng-container *ngIf="!selectedItemTemplate; else defaultPlaceholder">{{ label() === 'p-emptylabel' ? '&nbsp;' : label() }}</ng-container>
                 <ng-container *ngTemplateOutlet="selectedItemTemplate; context: { $implicit: selectedOption }"></ng-container>
@@ -474,12 +476,12 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     @Input() optionGroupChildren: string = 'items';
     /**
      * Whether to display the first item as the label if no placeholder is defined and value is null.
+     * @deprecated since v17.3.0, set initial value by model instead.
      * @group Props
      */
     @Input() autoDisplayFirst: boolean = true;
     /**
      * Whether to display options as grouped when nested options are provided.
-     * @deprecated since v17.3.0, set initial value by model instead.
      * @group Props
      */
     @Input() group: boolean | undefined;
@@ -894,8 +896,10 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         const options = this.group ? this.flatOptions(this.options) : this.options || [];
 
         if (this._filterValue()) {
+            const _filterBy = this.filterBy || this.optionLabel;
+
             const filteredOptions =
-                !this.filterBy && !this.filterFields && !this.optionValue
+                !_filterBy && !this.filterFields && !this.optionValue
                     ? this.options.filter((option) => option.toLowerCase().indexOf(this._filterValue().toLowerCase()) !== -1)
                     : this.filterService.filter(options, this.searchFields(), this._filterValue(), this.filterMatchMode, this.filterLocale);
             if (this.group) {
@@ -913,6 +917,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
             }
             return filteredOptions;
         }
+
         return options;
     });
 
@@ -928,13 +933,13 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
             const modelValue = this.modelValue();
             const visibleOptions = this.visibleOptions();
 
-            if (modelValue && this.editable) {
-                this.updateEditableLabel();
-            }
-
             if (visibleOptions && ObjectUtils.isNotEmpty(visibleOptions)) {
                 this.selectedOption = visibleOptions[this.findSelectedOptionIndex()];
                 this.cd.markForCheck();
+            }
+
+            if (modelValue && this.editable) {
+                this.updateEditableLabel();
             }
         });
     }
@@ -1058,7 +1063,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         const value = this.getOptionValue(option);
         this.updateModel(value, event);
         this.focusedOptionIndex.set(this.findSelectedOptionIndex());
-        isHide && this.hide(true);
+        isHide && setTimeout(() => this.hide(true), 1);
         preventChange === false && this.onChange.emit({ originalEvent: event, value: value });
     }
 
@@ -1103,7 +1108,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
     updateEditableLabel(): void {
         if (this.editableInputViewChild) {
-            this.editableInputViewChild.nativeElement.value = this.getOptionLabel(this.modelValue()) === undefined ? this.editableInputViewChild.nativeElement.value : this.getOptionLabel(this.modelValue());
+            this.editableInputViewChild.nativeElement.value = ObjectUtils.isNotEmpty(this.selectedOption) ? this.getOptionLabel(this.selectedOption) : this.editableInputViewChild.nativeElement.value;
         }
     }
 
@@ -1200,6 +1205,8 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         this.onModelChange(value);
         this.updateModel(value, event);
         this.onChange.emit({ originalEvent: event, value: value });
+
+        !this.overlayVisible && ObjectUtils.isNotEmpty(value) && this.show();
     }
     /**
      * Displays the panel.
@@ -1213,6 +1220,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         if (isFocus) {
             DomHandler.focus(this.focusInputViewChild?.nativeElement);
         }
+
         this.cd.markForCheck();
     }
 
@@ -1263,8 +1271,14 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         if (this.filter && this.resetFilterOnHide) {
             this.resetFilter();
         }
-
-        isFocus && DomHandler.focus(this.focusInputViewChild?.nativeElement);
+        if (isFocus) {
+            if (this.focusInputViewChild) {
+                DomHandler.focus(this.focusInputViewChild?.nativeElement);
+            }
+            if (this.editable && this.editableInputViewChild) {
+                DomHandler.focus(this.editableInputViewChild?.nativeElement);
+            }
+        }
         this.cd.markForCheck();
     }
 
@@ -1617,7 +1631,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
                 DomHandler.focus(event.shiftKey ? this.lastHiddenFocusableElementOnOverlay.nativeElement : this.firstHiddenFocusableElementOnOverlay.nativeElement);
                 event.preventDefault();
             } else {
-                if (this.focusedOptionIndex() !== -1) {
+                if (this.focusedOptionIndex() !== -1 && this.overlayVisible) {
                     const option = this.visibleOptions()[this.focusedOptionIndex()];
                     this.onOptionSelect(event, option);
                 }
@@ -1651,7 +1665,7 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     }
 
     searchFields() {
-        return this.filterFields || [this.optionLabel];
+        return this.filterBy?.split(',') || this.filterFields || [this.optionLabel];
     }
 
     searchOptions(event, char) {

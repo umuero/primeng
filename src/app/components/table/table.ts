@@ -1,16 +1,13 @@
 import { animate, AnimationEvent, style, transition, trigger } from '@angular/animations';
 import { CommonModule, DOCUMENT, isPlatformBrowser } from '@angular/common';
 import {
-    AfterContentChecked,
     AfterContentInit,
-    AfterViewChecked,
     AfterViewInit,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
     ContentChildren,
     Directive,
-    DoCheck,
     ElementRef,
     EventEmitter,
     HostListener,
@@ -33,28 +30,29 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { BlockableUI, FilterMatchMode, FilterMetadata, FilterOperator, FilterService, LazyLoadMeta, OverlayService, PrimeNGConfig, PrimeTemplate, SelectItem, SharedModule, SortMeta, TableState, TranslationKeys } from 'primeng/api';
+import { BlockableUI, FilterMatchMode, FilterMetadata, FilterOperator, FilterService, LazyLoadMeta, OverlayService, PrimeNGConfig, PrimeTemplate, ScrollerOptions, SelectItem, SharedModule, SortMeta, TableState, TranslationKeys } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
 import { ConnectedOverlayScrollHandler, DomHandler } from 'primeng/dom';
 import { DropdownModule } from 'primeng/dropdown';
-import { InputNumberModule } from 'primeng/inputnumber';
-import { InputTextModule } from 'primeng/inputtext';
-import { PaginatorModule } from 'primeng/paginator';
-import { Scroller, ScrollerModule } from 'primeng/scroller';
-import { ScrollerOptions } from 'primeng/api';
-import { SelectButtonModule } from 'primeng/selectbutton';
-import { TriStateCheckboxModule } from 'primeng/tristatecheckbox';
-import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
-import { Subject, Subscription } from 'rxjs';
 import { ArrowDownIcon } from 'primeng/icons/arrowdown';
 import { ArrowUpIcon } from 'primeng/icons/arrowup';
 import { CheckIcon } from 'primeng/icons/check';
 import { FilterIcon } from 'primeng/icons/filter';
+import { FilterSlashIcon } from 'primeng/icons/filterslash';
 import { SortAltIcon } from 'primeng/icons/sortalt';
 import { SortAmountDownIcon } from 'primeng/icons/sortamountdown';
 import { SortAmountUpAltIcon } from 'primeng/icons/sortamountupalt';
 import { SpinnerIcon } from 'primeng/icons/spinner';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { InputTextModule } from 'primeng/inputtext';
+import { PaginatorModule } from 'primeng/paginator';
+import { Scroller, ScrollerModule } from 'primeng/scroller';
+import { SelectButtonModule } from 'primeng/selectbutton';
+import { TriStateCheckboxModule } from 'primeng/tristatecheckbox';
+import { Nullable, VoidListener } from 'primeng/ts-helpers';
+import { ObjectUtils, UniqueComponentId, ZIndexUtils } from 'primeng/utils';
+import { Subject, Subscription } from 'rxjs';
 import {
     ExportCSVOptions,
     TableColResizeEvent,
@@ -74,9 +72,6 @@ import {
     TableRowUnSelectEvent,
     TableSelectAllChangeEvent
 } from './table.interface';
-import { Nullable, VoidListener } from 'primeng/ts-helpers';
-import { FilterSlashIcon } from 'primeng/icons/filterslash';
-import { platformBrowser } from '@angular/platform-browser';
 
 @Injectable()
 export class TableService {
@@ -474,7 +469,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
      * Defines whether metaKey should be considered for the selection. On touch enabled devices, metaKeySelection is turned off automatically.
      * @group Props
      */
-    @Input() metaKeySelection: boolean | undefined = true;
+    @Input() metaKeySelection: boolean | undefined = false;
     /**
      * Defines if the row is selectable.
      * @group Props
@@ -1850,6 +1845,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
 
         if (this.lazy && this.paginator) {
             (rangeStart as number) -= <number>this.first;
+            (rangeEnd as number) -= <number>this.first;
         }
 
         let rangeRowsData = [];
@@ -2033,7 +2029,7 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             clearTimeout(this.filterTimeout);
         }
         if (!this.isFilterBlank(value)) {
-            this.filters[field] = { value: value, matchMode: matchMode };
+            this.filters[field] = field == 'global' ? { value: value, matchMode: matchMode } : [{ value: value, matchMode: matchMode }];
         } else if (this.filters[field]) {
             delete this.filters[field];
         }
@@ -2264,43 +2260,36 @@ export class Table implements OnInit, AfterViewInit, AfterContentInit, Blockable
             }
         }
 
-        //headers
-        for (let i = 0; i < (<any[]>columns).length; i++) {
-            let column = (<any[]>columns)[i];
-            if (column.exportable !== false && column.field) {
-                csv += '"' + this.getExportHeader(column) + '"';
+        const exportableColumns: any[] = (<any[]>columns).filter((column) => column.exportable !== false && column.field);
 
-                if (i < (<any[]>columns).length - 1) {
-                    csv += this.csvSeparator;
-                }
-            }
-        }
+        //headers
+        csv += exportableColumns.map((column) => '"' + this.getExportHeader(column) + '"').join(this.csvSeparator);
 
         //body
-        data.forEach((record: any, i: number) => {
-            csv += '\n';
-            for (let i = 0; i < (<any[]>columns).length; i++) {
-                let column = (<any[]>columns)[i];
-                if (column.exportable !== false && column.field) {
-                    let cellData = ObjectUtils.resolveFieldData(record, column.field);
+        const body = data
+            .map((record: any) =>
+                exportableColumns
+                    .map((column) => {
+                        let cellData = ObjectUtils.resolveFieldData(record, column.field);
 
-                    if (cellData != null) {
-                        if (this.exportFunction) {
-                            cellData = this.exportFunction({
-                                data: cellData,
-                                field: column.field
-                            });
-                        } else cellData = String(cellData).replace(/"/g, '""');
-                    } else cellData = '';
+                        if (cellData != null) {
+                            if (this.exportFunction) {
+                                cellData = this.exportFunction({
+                                    data: cellData,
+                                    field: column.field
+                                });
+                            } else cellData = String(cellData).replace(/"/g, '""');
+                        } else cellData = '';
 
-                    csv += '"' + cellData + '"';
+                        return '"' + cellData + '"';
+                    })
+                    .join(this.csvSeparator)
+            )
+            .join('\n');
 
-                    if (i < (<any[]>columns).length - 1) {
-                        csv += this.csvSeparator;
-                    }
-                }
-            }
-        });
+        if (body.length) {
+            csv += '\n' + body;
+        }
 
         let blob = new Blob([csv], {
             type: 'text/csv;charset=utf-8;'
@@ -3274,7 +3263,7 @@ export class FrozenColumn implements AfterViewInit {
 
     set frozen(val: boolean) {
         this._frozen = val;
-        this.updateStickyPosition();
+        Promise.resolve(null).then(() => this.updateStickyPosition());
     }
 
     @Input() alignFrozen: string = 'left';
@@ -5570,7 +5559,7 @@ export class ColumnFilter implements AfterContentInit {
         if (!this.documentClickListener) {
             const documentTarget: any = this.el ? this.el.nativeElement.ownerDocument : 'document';
 
-            this.documentClickListener = this.renderer.listen(documentTarget, 'click', (event) => {
+            this.documentClickListener = this.renderer.listen(documentTarget, 'mousedown', (event) => {
                 if (this.overlayVisible && !this.selfClick && this.isOutsideClicked(event)) {
                     this.hide();
                 }
