@@ -693,7 +693,9 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
         return options;
     }
     set options(val: any[] | undefined) {
-        this._options.set(val);
+        if (!ObjectUtils.deepEquals(val, this._options())) {
+            this._options.set(val);
+        }
     }
     /**
      * Callback to invoke when value of dropdown changes.
@@ -1109,6 +1111,12 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
     updateEditableLabel(): void {
         if (this.editableInputViewChild) {
             this.editableInputViewChild.nativeElement.value = ObjectUtils.isNotEmpty(this.selectedOption) ? this.getOptionLabel(this.selectedOption) : this.editableInputViewChild.nativeElement.value;
+        }
+    }
+
+    clearEditableLabel(): void {
+        if (this.editableInputViewChild) {
+            this.editableInputViewChild.nativeElement.value = '';
         }
     }
 
@@ -1739,9 +1747,10 @@ export class Dropdown implements OnInit, AfterViewInit, AfterContentInit, AfterV
 
     clear(event: Event) {
         this.updateModel(null, event);
-        this.updateEditableLabel();
+        this.clearEditableLabel();
         this.onChange.emit({ originalEvent: event, value: this.value });
         this.onClear.emit(event);
+        this.resetFilter();
     }
 }
 
