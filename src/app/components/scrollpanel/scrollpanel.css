@@ -1,4 +1,3 @@
-@layer primeng {
     .p-scrollpanel-wrapper {
         overflow: hidden;
         width: 100%;
@@ -47,4 +46,3 @@
     .p-scrollpanel-grabbed {
         user-select: none;
     }
-}

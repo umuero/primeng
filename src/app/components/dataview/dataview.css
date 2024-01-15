@@ -1,4 +1,3 @@
-@layer primeng {
     .p-dataview {
         position: relative;
     }
@@ -10,4 +9,3 @@
         justify-content: center;
         z-index: 2;
     }
-}

@@ -1,4 +1,3 @@
-@layer primeng {
     .p-toast {
         position: fixed;
         width: 25rem;
@@ -68,4 +67,3 @@
     .p-toast-icon-close.p-link {
         cursor: pointer;
     }
-}

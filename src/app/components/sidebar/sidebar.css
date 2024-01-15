@@ -1,4 +1,3 @@
-@layer primeng {
     .p-sidebar {
         position: fixed;
         transition: transform 0.3s;
@@ -103,4 +102,3 @@
             width: 20rem;
         }
     }
-}
