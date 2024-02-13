@@ -1,4 +1,101 @@
 # Changelog
+## [17.6.0](https://github.com/primefaces/primeng/tree/17.6.0) (2024-02-07)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/17.5.0...17.6.0)
+
+**Implemented New Features and Enhancements:**
+- Dropdown | make clear method public for better DX [\#14641](https://github.com/primefaces/primeng/issues/14641)
+
+**Fixed bugs:**
+- MultiSelect: selectedItemsLabel is not localized (re-opened) [\#14554](https://github.com/primefaces/primeng/issues/14554)
+- Component: Calendar isn't show initial value from FormControl/ngModel [\#14616](https://github.com/primefaces/primeng/issues/14616)
+- Component: Dropdown removing a letter from filter that comes after a whitespace ' ' removes the whitespace [\#14701](https://github.com/primefaces/primeng/issues/14701)
+- Component: p-multiselect - double click on multiselect "button" causes modal window to jump around before disappearing [\#14442](https://github.com/primefaces/primeng/issues/14442)
+- Virtual Scroll Jumping Backwards [\#14298](https://github.com/primefaces/primeng/issues/14298)
+- p-dropdown: dropdown options float to the top when searching [\#14659](https://github.com/primefaces/primeng/issues/14659)
+- Dropdown: Key events not correctly working when filter is enabled [\#14189](https://github.com/primefaces/primeng/issues/14189)
+- Component: Dropdown| closing overlay on pressing enter key on filter input [\#14708](https://github.com/primefaces/primeng/issues/14708)
+- Component: p-Dropdown placeholder/values not displayed [\#14695](https://github.com/primefaces/primeng/issues/14695)
+- TreeSelect: When using reactive form disabled input doesn't affect [\#14662](https://github.com/primefaces/primeng/issues/14662)
+- MultiSelect: dynamic text in placeholder is not displayed [\#14321](https://github.com/primefaces/primeng/issues/14321)
+- Dropdown: dynamic text in placeholder is not displayed [\#14320](https://github.com/primefaces/primeng/issues/14320)
+- Component: Dropdown TypeError: option.toLowerCase is not a function [\#14682](https://github.com/primefaces/primeng/issues/14682)
+- Dropdown: "0" Value in optionValue, causes Label to be replaced by Placeholder [\#14715](https://github.com/primefaces/primeng/issues/14715)
+- The scrollToIndex method on VirtualScroller does not scroll to the correct index when triggered twice. [\#14731](https://github.com/primefaces/primeng/issues/14731)
+- Checkbox: Disabled property does not work when it's used with formControlName [\#14693](https://github.com/primefaces/primeng/issues/14693)
+- PrimeNg p-columnFilter does not close on outside element click or scroll or search submit [\#14658](https://github.com/primefaces/primeng/issues/14658)
+- Showcase | Remove stateful config [\#14752](https://github.com/primefaces/primeng/issues/14752)
+
+
+## [17.5.0](https://github.com/primefaces/primeng/tree/17.5.0) (2024-02-01)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/17.4.0...17.5.0)
+
+**Implemented New Features and Enhancements:**
+- AutoComplete | Description in the accessibility section for tab not working [\#14641](https://github.com/primefaces/primeng/issues/14641)
+
+**Fixed bugs:**
+- Component: InputNumber does not validate max on blur [\#14630](https://github.com/primefaces/primeng/issues/14630)
+- p-dropdown: Filtering all items incorrectly clears the dropdown's selected value [\#14596](https://github.com/primefaces/primeng/issues/14596)
+- Component: Dropdown [\#14367](https://github.com/primefaces/primeng/issues/14367)
+- paginator missing p-paginator-top/bottom class [\#14679](https://github.com/primefaces/primeng/issues/14679)
+- Component: Placeholder not working in dropdown Reactive Forms and Template [\#14679](https://github.com/primefaces/primeng/issues/14679)
+- TabView with scrollable throws an exception [\#13332](https://github.com/primefaces/primeng/issues/13332)
+- Component: TreeTable, dragging over table cells [\#14512](https://github.com/primefaces/primeng/issues/14512)
+- p-calendar: validation is triggered before calendar is even touched [\#14542](https://github.com/primefaces/primeng/issues/14542)
+- Referencing closed thread -> Responsive Stack and add [scrollable]="true" not working responsive stack #11331 [\#14667](https://github.com/primefaces/primeng/issues/14667)
+- Table: built-in Ctrl+A errors when "rows" parameter is defined [\#14634](https://github.com/primefaces/primeng/issues/14634)
+- p-autocomplete: maxlength doesn't work anymore [\#14595](https://github.com/primefaces/primeng/issues/14595)
+- Dropdown: autoOptionFocus property not working [\#14655](https://github.com/primefaces/primeng/issues/14655)
+- Dropdown: Unable to type in editable Dropdowns when filtering options onChange and current value is an option [\#14556](https://github.com/primefaces/primeng/issues/14556)
+- p-MultiSelect: Clear Button does not work [\#14585](https://github.com/primefaces/primeng/issues/14585)
+- Calendar: Calendar CSS breaks other Components [\#14606](https://github.com/primefaces/primeng/issues/14606)
+
+## [17.4.0](https://github.com/primefaces/primeng/tree/17.4.0) (2024-01-24)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/17.3.3...17.4.0)
+
+**Implemented New Features and Enhancements:**
+- MultiSelect: selectedItemsLabel is not localized [\#14554](https://github.com/primefaces/primeng/issues/14554)
+
+**Fixed bugs:**
+- p-columnFilter: Missing icons to the table column filter dialog [\#14613](https://github.com/primefaces/primeng/issues/14613)
+- p-multiselect: Displaying the multiselect options dialog causes page to horizontally scroll [\#14611](https://github.com/primefaces/primeng/issues/14611)
+- p-calendar: Doesn't close on date selection in range mode [\#14558](https://github.com/primefaces/primeng/issues/14558)
+- ConfirmPopup arror right side rendering defect [\#14557](https://github.com/primefaces/primeng/issues/14557)
+- Dropdown: can't select input with Shift + Home / Shift + End [\#14540](https://github.com/primefaces/primeng/issues/14540)
+- TreeTable: StyleClass wont apply [\#14559](https://github.com/primefaces/primeng/issues/14559)
+- p-dropdown: optionValue is not working when object has property 'group' [\#14516](https://github.com/primefaces/primeng/issues/14516)
+- Table pSelectableRow: cannot type space into an pInputText component [\#14531](https://github.com/primefaces/primeng/issues/14531)
+- p-dropdown: Cannot clear dropdown programmatically [\#14544](https://github.com/primefaces/primeng/issues/14544)
+
+## [17.3.3](https://github.com/primefaces/primeng/tree/17.3.3) (2024-01-18)
+
+[Full Changelog](https://github.com/primefaces/primeng/compare/17.3.2...17.3.3)
+
+**Fixed bugs:**
+- Component: Carousel swipe not working properly on iOS devices [\#12942](https://github.com/primefaces/primeng/issues/12942)
+- Autocomplete: focus not being applied when clicking around input [\#14530](https://github.com/primefaces/primeng/issues/14530)
+- Chips: NumpadEnter being ignored [\#14578](https://github.com/primefaces/primeng/issues/14578)
+- Component: Chips: Invalid aria attribute: aria-pointset (should be aria-posinset) [\#14568](https://github.com/primefaces/primeng/issues/14568)
+- Button | StyleClass does not work as expected [\#14583](https://github.com/primefaces/primeng/issues/14583)
+- Calendar: Calendar Icon has a default cursor on hover [\#14501](https://github.com/primefaces/primeng/issues/14501)
+- SSR Duplicate elements with provideClientHydration() [\#14569](https://github.com/primefaces/primeng/issues/14569)
+- TreeTable with scrollHeight="flex" shrinks the header as the table rows are expanded. [\#14523](https://github.com/primefaces/primeng/issues/14523)
+- Table | Column filter in stateful is become 'undefined' [\#14571](https://github.com/primefaces/primeng/issues/14571)
+- Component: dropdown - Editable dropdown does not change value to empty string [\#14546](https://github.com/primefaces/primeng/issues/14546)
+- PrimeNG table filtering and sorting on each column- filter is not opening with keyboard [\#14545](https://github.com/primefaces/primeng/issues/14545)
+- GalleriaThumbnail afterViewInit use platformBrowser instead of isPlatformBrowser [\#14553](https://github.com/primefaces/primeng/issues/14553)
+- p-columnfilter: missing aria-label [\#14537](https://github.com/primefaces/primeng/issues/14537)
+- Component: Chips. Duplicate validation is case sensitive [\#14550](https://github.com/primefaces/primeng/issues/14550)
+- Paginator / Table: Configurable Dropdown Icon [\#9605](https://github.com/primefaces/primeng/issues/9605)
+- Chart component should runOutsideOfAngular [\#14561](https://github.com/primefaces/primeng/issues/14561)
+- Component: Table. Export CSV with cyrillic or chinese characters has broken encoding in Microsoft Excel [\#14562](https://github.com/primefaces/primeng/issues/14562)
+- p-table: columnFilter p-calendar cropped by overflow [\#14564](https://github.com/primefaces/primeng/issues/14564)
+- EditableColumn: error in ngOnChanges when input other than data changes [\#14525](https://github.com/primefaces/primeng/issues/14525)
+- SplitButton contains a typo on "aria-haspopup" attribute [\#14533](https://github.com/primefaces/primeng/issues/14533)
+- Calendar: Datepicker is hidden on PrimeNg homepage [\#14547](https://github.com/primefaces/primeng/issues/14547)
+
 ## [17.3.2](https://github.com/primefaces/primeng/tree/17.3.2) (2024-01-10)
 
 [Full Changelog](https://github.com/primefaces/primeng/compare/17.3.1...17.3.2)
@@ -172,6 +269,24 @@
 **Implemented New Features and Enhancements:**
 - TypeError: this.focusedItemInfo.mutate is not a function [\#14119](https://github.com/primefaces/primeng/issues/14119)
 - Upgrade to Angular 17? [\#14063](https://github.com/primefaces/primeng/issues/14063)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [16.9.5-LTS](https://www.npmjs.com/package/primeng/v/16.9.5-lts) (2024-02-07)
+
+**Fixed bugs:**
+- The scrollToIndex method on VirtualScroller does not scroll to the correct index when triggered twice. [\#14731](https://github.com/primefaces/primeng/issues/14731)
+- Checkbox: Disabled property does not work when it's used with formControlName [\#14693](https://github.com/primefaces/primeng/issues/14693)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [16.9.4-LTS](https://www.npmjs.com/package/primeng/v/16.9.4-lts) (2024-01-19)
+
+**Fixed bugs:**
+- Table Virtual Scroll with Fixed Columns and Lazy Loading Causes Erratic Scrolling and Incomplete Data Display [\#14488](https://github.com/primefaces/primeng/issues/14488)
+- TreeTable with scrollHeight="flex" shrinks the header as the table rows are expanded. [\#14523](https://github.com/primefaces/primeng/issues/14523)
+- GalleriaThumbnail afterViewInit use platformBrowser instead of isPlatformBrowser. [\#14534](https://github.com/primefaces/primeng/issues/14534)
+- Autocomplete: focus not being applied when clicking around input [\#14530](https://github.com/primefaces/primeng/issues/14530)
+- Button | StyleClass does not work as expected [\#14583](https://github.com/primefaces/primeng/issues/14583)
+- MegaMenu | Error: Cannot read properties of undefined [\#14476](https://github.com/primefaces/primeng/issues/14476)
+- Table: Apply and Clear text buttons for filter menu are missing [\#14289](https://github.com/primefaces/primeng/issues/14289)
+- Dropdown: Infinite loop dynamic options array [\#14319](https://github.com/primefaces/primeng/issues/14319)
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [16.9.3-LTS](https://www.npmjs.com/package/primeng/v/16.9.3-lts) (2023-12-28)
 
@@ -707,6 +822,22 @@
 - Touch Control - Thumbnails selects photo randomly when tapping. [\#12943](https://github.com/primefaces/primeng/issues/12943)
 - Checkbox in p-treeNode always checked when using custom icon [\#12951](https://github.com/primefaces/primeng/issues/12951)
 - ConfirmDialog: Duplicated AcceptIcons [\#13001](https://github.com/primefaces/primeng/issues/13001)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [15.4.16-LTS](https://www.npmjs.com/package/primeng/v/15.4.16-lts) (2024-02-07)
+
+**Fixed bugs:**
+- The scrollToIndex method on VirtualScroller does not scroll to the correct index when triggered twice. [\#14731](https://github.com/primefaces/primeng/issues/14731)
+- Checkbox: Disabled property does not work when it's used with formControlName [\#14693](https://github.com/primefaces/primeng/issues/14693)
+
+## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [15.4.15-LTS](https://www.npmjs.com/package/primeng/v/15.4.15-lts) (2024-01-19)
+
+**Fixed bugs:**
+- TreeTable with scrollHeight="flex" shrinks the header as the table rows are expanded. [\#14523](https://github.com/primefaces/primeng/issues/14523)
+- GalleriaThumbnail afterViewInit use platformBrowser instead of isPlatformBrowser [\#14534](https://github.com/primefaces/primeng/issues/14534)
+- Table Virtual Scroll with Fixed Columns and Lazy Loading Causes Erratic Scrolling and Incomplete Data Display [\#14488](https://github.com/primefaces/primeng/issues/14488)
+- Autocomplete: focus not being applied when clicking around input [\#14530](https://github.com/primefaces/primeng/issues/14530)
+- Button | StyleClass does not work as expected [\#14583](https://github.com/primefaces/primeng/issues/14583)
+
 
 ## ![LTS](https://www.primefaces.org/wp-content/uploads/2020/01/lts-icon-24.png "PrimeNG LTS") [15.4.14-LTS](https://www.npmjs.com/package/primeng/v/15.4.14-lts) (2023-12-14)
 
