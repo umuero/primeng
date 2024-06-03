@@ -272,7 +272,6 @@
   color: #007ad9;
 }
 
-@layer primeng {
   * {
     box-sizing: border-box;
   }
@@ -6351,8 +6350,6 @@
     font-feature-settings: var(--font-feature-settings, normal);
     font-size: 1rem;
   }
-}
-@layer primeng {
   .p-panel .p-panel-header .p-panel-header-icon {
     color: #ffffff;
   }
@@ -6366,7 +6363,6 @@
   .p-dialog .p-dialog-header .p-dialog-header-icon:enabled:hover {
     color: #5ab7ff;
   }
-}
 .p-accordion .p-accordion-header:not(.p-highlight):not(.p-disabled):hover .p-accordion-header-link {
   background-color: #27a0ff;
   border-color: #27a0ff;

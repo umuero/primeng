@@ -1,4 +1,3 @@
-@layer primeng {
     .p-calendar {
         position: relative;
         display: inline-flex;
@@ -174,4 +173,3 @@
     .p-calendar-clearable {
         position: relative;
     }
-}

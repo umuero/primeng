@@ -1,4 +1,3 @@
-@layer primeng {
     .p-multiselect {
         display: inline-flex;
         cursor: pointer;
@@ -113,4 +112,3 @@
     .p-multiselect-clearable {
         position: relative;
     }
-}

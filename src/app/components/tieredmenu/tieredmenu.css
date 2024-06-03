@@ -1,4 +1,3 @@
-@layer primeng {
     .p-tieredmenu-overlay {
         position: absolute;
         top: 0;
@@ -52,4 +51,3 @@
     .p-tieredmenu .p-menuitem-active > p-tieredmenusub > .p-submenu-list.p-submenu-list-flipped {
         left: -100%;
     }
-}

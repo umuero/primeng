@@ -272,7 +272,6 @@
   color: #007ad9;
 }
 
-@layer primeng {
   * {
     box-sizing: border-box;
   }
@@ -6363,8 +6362,6 @@
     font-feature-settings: var(--font-feature-settings, normal);
     font-size: 1rem;
   }
-}
-@layer primeng {
   .p-panel .p-panel-header .p-panel-header-icon {
     color: #848484;
   }
@@ -6378,5 +6375,4 @@
   .p-dialog .p-dialog-header .p-dialog-header-icon:enabled:hover {
     color: #333333;
   }
-}
 /* Customizations to the designer theme should be defined here */

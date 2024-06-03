@@ -1,4 +1,3 @@
-@layer primeng {
     .p-splitbutton {
         display: inline-flex;
         position: relative;
@@ -30,4 +29,3 @@
     .p-fluid .p-splitbutton {
         display: flex;
     }
-}

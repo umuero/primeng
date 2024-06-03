@@ -1,4 +1,3 @@
-@layer primeng {
     .p-overlaypanel {
         position: absolute;
         margin-top: 10px;
@@ -60,4 +59,3 @@
     .p-overlaypanel.p-overlaypanel-flipped:before {
         border-bottom-color: transparent;
     }
-}

@@ -1,4 +1,3 @@
-@layer primeng {
     .p-dropdown {
         display: inline-flex;
         cursor: pointer;
@@ -89,4 +88,3 @@
     .p-float-label .p-dropdown .p-placeholder {
         opacity: 0;
     }
-}

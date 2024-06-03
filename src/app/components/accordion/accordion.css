@@ -1,4 +1,3 @@
-@layer primeng {
     .p-accordion-header-link {
         cursor: pointer;
         display: flex;
@@ -32,4 +31,3 @@
     .p-accordion-toggle-icon {
         order: 0;
     }
-}

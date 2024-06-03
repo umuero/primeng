@@ -3,7 +3,6 @@
         stroke-dashoffset: 0;
     }
 }
-@layer primeng {
     .p-knob-range {
         fill: none;
         transition: stroke 0.1s ease-in;
@@ -17,4 +16,3 @@
         font-size: 1.3rem;
         text-align: center;
     }
-}

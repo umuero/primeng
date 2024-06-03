@@ -1,4 +1,3 @@
-@layer primeng {
     .p-tree-container {
         margin: 0;
         padding: 0;
@@ -150,9 +149,8 @@
     .p-tree.p-tree-horizontal table {
         height: 0;
     }
-    
+
     /* Virtual Scroll */
     .p-scroller .p-tree-container {
         overflow: visible;
     }
-}

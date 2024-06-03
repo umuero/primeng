@@ -1,4 +1,3 @@
-@layer primeng {
     .p-speeddial {
         position: absolute;
         display: flex;
@@ -117,4 +116,3 @@
     .p-speeddial-direction-right .p-speeddial-list {
         flex-direction: row;
     }
-}

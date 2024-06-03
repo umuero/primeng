@@ -25,29 +25,27 @@ import {
     Renderer2,
     Signal,
     signal,
-    SimpleChanges,
     TemplateRef,
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { FilterService, Footer, Header, OverlayOptions, OverlayService, PrimeNGConfig, PrimeTemplate, SharedModule, TranslationKeys } from 'primeng/api';
+import { FilterService, Footer, Header, OverlayOptions, OverlayService, PrimeNGConfig, PrimeTemplate, ScrollerOptions, SharedModule, TranslationKeys } from 'primeng/api';
+import { AutoFocusModule } from 'primeng/autofocus';
 import { DomHandler } from 'primeng/dom';
+import { CheckIcon } from 'primeng/icons/check';
+import { ChevronDownIcon } from 'primeng/icons/chevrondown';
+import { MinusIcon } from 'primeng/icons/minus';
+import { SearchIcon } from 'primeng/icons/search';
+import { TimesIcon } from 'primeng/icons/times';
+import { TimesCircleIcon } from 'primeng/icons/timescircle';
 import { Overlay, OverlayModule } from 'primeng/overlay';
 import { RippleModule } from 'primeng/ripple';
 import { Scroller, ScrollerModule } from 'primeng/scroller';
-import { ScrollerOptions } from 'primeng/api';
 import { TooltipModule } from 'primeng/tooltip';
-import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
-import { CheckIcon } from 'primeng/icons/check';
-import { SearchIcon } from 'primeng/icons/search';
-import { TimesCircleIcon } from 'primeng/icons/timescircle';
-import { TimesIcon } from 'primeng/icons/times';
-import { ChevronDownIcon } from 'primeng/icons/chevrondown';
 import { Nullable } from 'primeng/ts-helpers';
-import { AutoFocusModule } from 'primeng/autofocus';
-import { MultiSelectRemoveEvent, MultiSelectFilterOptions, MultiSelectFilterEvent, MultiSelectBlurEvent, MultiSelectChangeEvent, MultiSelectFocusEvent, MultiSelectLazyLoadEvent, MultiSelectSelectAllChangeEvent } from './multiselect.interface';
-import { MinusIcon } from 'primeng/icons/minus';
+import { ObjectUtils, UniqueComponentId } from 'primeng/utils';
+import { MultiSelectBlurEvent, MultiSelectChangeEvent, MultiSelectFilterEvent, MultiSelectFilterOptions, MultiSelectFocusEvent, MultiSelectLazyLoadEvent, MultiSelectRemoveEvent, MultiSelectSelectAllChangeEvent } from './multiselect.interface';
 
 export const MULTISELECT_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -1179,15 +1177,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
         return ObjectUtils.isNotEmpty(this.maxSelectedLabels) && this.modelValue() && this.modelValue().length > this.maxSelectedLabels ? this.modelValue().slice(0, this.maxSelectedLabels) : this.modelValue();
     });
 
-    constructor(
-        public el: ElementRef,
-        public renderer: Renderer2,
-        public cd: ChangeDetectorRef,
-        public zone: NgZone,
-        public filterService: FilterService,
-        public config: PrimeNGConfig,
-        public overlayService: OverlayService
-    ) {
+    constructor(public el: ElementRef, public renderer: Renderer2, public cd: ChangeDetectorRef, public zone: NgZone, public filterService: FilterService, public config: PrimeNGConfig, public overlayService: OverlayService) {
         effect(() => {
             const modelValue = this.modelValue();
 
@@ -1765,6 +1755,7 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
                     this.onOptionSelectRange(event, this.focusedOptionIndex());
                 } else {
                     this.onOptionSelect({ originalEvent: event, option: this.visibleOptions()[this.focusedOptionIndex()] });
+                    this.resetFilter(); // UE
                 }
             }
         }
@@ -1797,6 +1788,9 @@ export class MultiSelect implements OnInit, AfterViewInit, AfterContentInit, Aft
 
                 this.overlayVisible && this.hide(this.filter);
             }
+        } else {
+            // UE
+            this.overlayVisible && this.hide(this.filter);
         }
     }
 
