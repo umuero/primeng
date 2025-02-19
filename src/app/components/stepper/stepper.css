@@ -1,7 +1,0 @@
-    .p-stepper-vertical .p-stepper-panel > .p-stepper-toggleable-content {
-        overflow: hidden;
-    }
-
-    .p-stepper-vertical .p-stepper-panel-active > .p-stepper-toggleable-content:not(.ng-animating) {
-        overflow: inherit;
-    }
