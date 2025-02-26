@@ -1385,6 +1385,7 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
     }
 
     ngAfterViewInit() {
+        super.ngAfterViewInit();
         if (this.editable) {
             this.updateEditableLabel();
         }
@@ -1955,6 +1956,7 @@ export class Select extends BaseComponent implements OnInit, AfterViewInit, Afte
     onEscapeKey(event: KeyboardEvent) {
         this.overlayVisible && this.hide(true);
         event.preventDefault();
+        event.stopPropagation();
     }
 
     onTabKey(event, pressedInInputText = false) {
