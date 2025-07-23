@@ -1,6 +1,6 @@
 {
-    "id": 2,
-    "content": "PrimeNG v19.0.8 is out now 🚀",
+    "id": 95,
+    "content": "PrimeNG v20.0.0 has arrived! 🛩️",
     "linkText": "Learn More",
-    "linkHref": "['/theming']"
+    "routerLink": "/migration/v20"
 }
