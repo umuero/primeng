@@ -129,6 +129,7 @@ export class SelectItem extends BaseComponent {
  * Select is used to choose an item from a collection of options.
  * @group Components
  */
+
 @Component({
     selector: 'p-select',
     standalone: true,
@@ -1382,7 +1383,7 @@ export class Select extends BaseInput implements OnInit, AfterViewInit, AfterCon
         this.focused = false;
         this.onBlur.emit(event);
 
-        if (!this.preventModelTouched) {
+        if (!this.preventModelTouched && !this.overlayVisible) {
             this.onModelTouched();
         }
         this.preventModelTouched = false;

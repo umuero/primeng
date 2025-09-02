@@ -114,6 +114,7 @@ import { PickListStyle } from './style/pickliststyle';
             <div [class]="cx('sourceListContainer')" [attr.data-pc-section]="'sourceWrapper'" [attr.data-pc-group-section]="'listWrapper'">
                 <p-listbox
                     #sourcelist
+                    [ariaLabel]="sourceAriaLabel"
                     [multiple]="true"
                     [options]="source"
                     [(ngModel)]="selectedItemsSource"
@@ -244,6 +245,7 @@ import { PickListStyle } from './style/pickliststyle';
             <div [class]="cx('targetListContainer')" [attr.data-pc-section]="'targetWrapper'" [attr.data-pc-group-section]="'listwrapper'">
                 <p-listbox
                     #targetlist
+                    [ariaLabel]="targetAriaLabel"
                     [multiple]="true"
                     [options]="target"
                     [(ngModel)]="selectedItemsTarget"
@@ -427,6 +429,16 @@ export class PickList extends BaseComponent implements AfterContentInit {
      * @group Props
      */
     @Input() bottomButtonAriaLabel: string | undefined;
+    /**
+     * Defines a string that labels the source list.
+     * @group Props
+     */
+    @Input() sourceAriaLabel: string | undefined;
+    /**
+     * Defines a string that labels the target list.
+     * @group Props
+     */
+    @Input() targetAriaLabel: string | undefined;
     /**
      * Text for the target list caption
      * @group Props
@@ -1593,6 +1605,7 @@ export class PickList extends BaseComponent implements AfterContentInit {
                 this.renderer.setAttribute(this.el.nativeElement.children[0], this.id, '');
                 this.styleElement = this.renderer.createElement('style');
                 this.renderer.setAttribute(this.styleElement, 'type', 'text/css');
+                setAttribute(this.styleElement, 'nonce', this.config?.csp()?.nonce);
                 this.renderer.appendChild(this.document.head, this.styleElement);
 
                 let innerHTML = `

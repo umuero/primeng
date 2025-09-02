@@ -1,6 +1,7 @@
 {
-    "id": 95,
-    "content": "PrimeNG v20.0.0 has arrived! 🛩️",
+    "id": 86,
+    "content": "All Premium Templates Now Upgraded to v20 🎉",
     "linkText": "Learn More",
-    "routerLink": "/migration/v20"
+    "routerLink": "/templates",
+    "target": "_blank"
 }

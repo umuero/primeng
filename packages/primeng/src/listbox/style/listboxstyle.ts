@@ -9,6 +9,15 @@ const theme = /*css*/ `
     .p-listbox.ng-invalid.ng-dirty {
         border-color: dt('listbox.invalid.border.color');
     }
+
+    .p-listbox-header {
+        display: flex;
+        align-items: center;
+    }
+
+    .p-listbox-header > .p-iconfield {
+        flex-grow: 1;
+    }
 `;
 
 const classes = {
