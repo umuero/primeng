@@ -5,7 +5,6 @@ import { CommonModule, DOCUMENT } from '@angular/common';
 import { afterNextRender, booleanAttribute, Component, computed, ElementRef, Inject, Input, OnDestroy, Renderer2 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
-import docsearch from '@docsearch/js';
 import { DomHandler } from 'primeng/dom';
 import { StyleClass } from 'primeng/styleclass';
 
@@ -94,9 +93,6 @@ import { StyleClass } from 'primeng/styleclass';
 
             <ul class="topbar-items">
                 <li>
-                    <div id="docsearch"></div>
-                </li>
-                <li>
                     <a href="https://github.com/primefaces/primeng" target="_blank" rel="noopener noreferrer" class="topbar-item">
                         <i class="pi pi-github text-surface-700 dark:text-surface-100"></i>
                     </a>
@@ -117,12 +113,21 @@ import { StyleClass } from 'primeng/styleclass';
                     </button>
                 </li>
                 <li *ngIf="showConfigurator" class="relative">
-                    <button type="button" class="topbar-item config-item" enterActiveClass="animate-scalein" enterFromClass="hidden" leaveActiveClass="animate-fadeout" leaveToClass="hidden" pStyleClass="@next" [hideOnOutsideClick]="true">
+                    <button
+                        type="button"
+                        class="topbar-item config-item"
+                        enterActiveClass="px-overlay-enter-active"
+                        enterFromClass="hidden"
+                        leaveActiveClass="px-overlay-leave-active"
+                        leaveToClass="hidden"
+                        pStyleClass="@next"
+                        [hideOnOutsideClick]="true"
+                    >
                         <i class="pi pi-palette"></i>
                     </button>
                     <app-configurator />
                 </li>
-                <li>
+                <!--<li>
                     <button type="button" class="topbar-item relative group overflow-hidden !border-transparent" (click)="toggleDesigner()">
                         <span
                             style="animation-duration: 2s; background: conic-gradient(from 90deg, #f97316, #f59e0b, #eab308, #84cc16, #22c55e, #10b981, #14b8a6, #06b6d4, #0ea5e9, #3b82f6, #6366f1, #8b5cf6, #a855f7, #d946ef, #ec4899, #f43f5e)"
@@ -131,9 +136,18 @@ import { StyleClass } from 'primeng/styleclass';
                         <span style="inset: 1px; border-radius: 4px" class="absolute z-2 bg-surface-0 dark:bg-surface-900 transition-all"></span>
                         <i class="pi pi-cog z-10"></i>
                     </button>
-                </li>
+                </li>-->
                 <li>
-                    <button pStyleClass="@next" enterFromClass="hidden" enterActiveClass="animate-scalein" leaveToClass="hidden" leaveActiveClass="animate-fadeout" [hideOnOutsideClick]="true" type="button" class="topbar-item version-item">
+                    <button
+                        pStyleClass="@next"
+                        enterFromClass="hidden"
+                        enterActiveClass="px-overlay-enter-active"
+                        leaveToClass="hidden"
+                        leaveActiveClass="px-overlay-leave-active"
+                        [hideOnOutsideClick]="true"
+                        type="button"
+                        class="topbar-item version-item"
+                    >
                         <span class="version-text">{{ versions ? versions[0].name : 'Latest' }}</span>
                         <span class="version-icon pi pi-angle-down"></span>
                     </button>
@@ -177,7 +191,6 @@ export class AppTopBarComponent implements OnDestroy {
 
         afterNextRender(() => {
             this.bindScrollListener();
-            this.initDocSearch();
         });
     }
 
@@ -207,15 +220,6 @@ export class AppTopBarComponent implements OnDestroy {
 
     toggleDarkMode() {
         this.configService.appState.update((state) => ({ ...state, darkTheme: !state.darkTheme }));
-    }
-
-    initDocSearch() {
-        docsearch({
-            appId: 'XG1L2MUWT9',
-            apiKey: '0c7d92ce7c38649263123110162ac181',
-            indexName: 'primeng',
-            container: '#docsearch'
-        });
     }
 
     bindScrollListener() {
